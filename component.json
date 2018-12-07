@@ -1,0 +1,20 @@
+{
+  "name": "Product",
+  "version": "1.0.0",
+  "description": "Шаблон страницы товара",
+  "author": "LiquidHub.ru",
+  "type": "snippets",
+  "homepage": "https://github.com/insales-components/product",
+  "props": {
+    "common": false,
+    "liquid": true
+  },
+  "dependencies": {
+    "breadcrumb": "https://github.com/insales-components/breadcrumb",
+    "recently_view": "https://github.com/insales-components/recently_view",
+    "products_slider": "https://github.com/insales-components/products_slider",
+    "product_form": "https://github.com/insales-components/product_form",
+    "product_tabs": "https://github.com/insales-components/product_tabs",
+    "product_gallery": "https://github.com/insales-components/product_gallery"
+  }
+}
