@@ -1,0 +1,26 @@
+<div class="container">
+  {% include "breadcrumb" %}
+</div>
+
+<div class="container">
+  <div class="row is-grid">
+    {% unless product.images.size == 0 %}
+    <div class="cell-4">
+      {% include "product_gallery" %}
+    </div>
+    {% endunless %}
+
+    <div class="cell-8">
+      {% include "product_info" %}
+    </div>
+    <div class="cell-12">
+      {% include "product_tabs" %}
+    </div>
+  </div>
+</div>
+
+{% include "recently_view" %}
+
+{% include "products", products_title: 'Аналогичные товары', products_prefix: 'is-similar', products_array: product.similar_products  %}
+
+{% include "products", products_title: 'Сопутствующие товары', products_prefix: 'is-related', products_array: product.related_products  %}
