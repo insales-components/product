@@ -21,6 +21,6 @@
 
 {% include "recently_view" %}
 
-{% include "products", products_title: 'Аналогичные товары', products_prefix: 'is-similar', products_array: product.similar_products  %}
+{% include "products_slider", products_title: 'Аналогичные товары', products_prefix: 'is-similar', products_array: product.similar_products  %}
 
-{% include "products", products_title: 'Сопутствующие товары', products_prefix: 'is-related', products_array: product.related_products  %}
+{% include "products_slider", products_title: 'Сопутствующие товары', products_prefix: 'is-related', products_array: product.related_products  %}
