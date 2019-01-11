@@ -1,26 +1,78 @@
-<div class="container">
-  {% include "breadcrumb" %}
-</div>
+<div class="product-info">
 
-<div class="container">
-  <div class="row is-grid">
-    {% unless product.images.size == 0 %}
-    <div class="cell-4">
-      {% include "product_gallery" %}
-    </div>
-    {% endunless %}
+  <form class="" action="{{ cart_url }}" method="post" data-product-id="{{ product.id }}" data-recently-view="{{ product.id }}" data-product-gallery=".js-product-gallery-main">
+  <h1 class="product-title">
+    {{ product.title }}
+  </h1>
 
-    <div class="cell-8">
-      {% include "product_form" %}
+
+  <div class="product-available" data-product-available>
+    {% if product.available %}
+    Товар в наличии
+    {% else %}
+    Товара нет в наличии
+    {% endif %}
+  </div>
+
+  <div class="product-sku" data-product-sku>
+    {% if product.variants.first.sku %}
+    арт. {{ product.variants.first.sku }}
+    {% endif %}
+  </div>
+
+  <div class="product-prices">
+    <div class="product-old_price">
+      <span data-product-old-price>{{ product.old_price | money }}</span>
     </div>
-    <div class="cell-12">
-      {% include "product_tabs" %}
+    <div class="product-price">
+      <span data-product-price>{{product.price | money }}</span>
     </div>
   </div>
+
+  {% if product.short_description %}
+  <div class="product-short_description">
+    {{ product.short_description }}
+  </div>
+  {% endif %}
+
+  {% if product.properties.size > 0 %}
+  <div class="props">
+    {% for property in product.properties %}
+      <div class="property">
+        <label><span>{{property.title}}</span></label>
+        <span>
+          {% for characteristic in property.characteristics %}
+          {{characteristic.title}}{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        </span>
+      </div>
+    {% endfor %}
+   </div>
+  {% endif %}
+
+  {% if product.show_variants? %}
+    <select name="variant_id" data-product-variants>
+      {% for variant in product.variants %}
+        <option value="{{ variant.id }}">{{ variant.title | escape }}</option>
+      {% endfor %}
+    </select>
+  {% else %}
+    <input type="hidden" name="variant_id" value="{{product.variants.first.id}}" >
+  {% endif %}
+
+  {% include "quantity", input_type: 'product' %}
+
+  <div class="product-buy">
+    <button type="submit" data-item-add class="btn btn-primary in-product">
+      В корзину
+    </button>
+  </div>
+
+  {% if account.quick_checkout.enabled %}
+    <button type="button" class="btn btn-secondary" data-quick-checkout="[data-product-id='{{ product.id }}']">
+      В один клик
+    </button>
+  {% endif %}
+
+  </form>
 </div>
-
-{% include "recently_view" %}
-
-{% include "products_slider", products_title: 'Аналогичные товары', products_prefix: 'is-similar', products_array: product.similar_products  %}
-
-{% include "products_slider", products_title: 'Сопутствующие товары', products_prefix: 'is-related', products_array: product.related_products  %}
